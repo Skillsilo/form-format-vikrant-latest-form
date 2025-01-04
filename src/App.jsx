@@ -69,7 +69,7 @@ function App() {
       aadharNumber: data[17]?.trim() || "Not mentioned",
       city: `${data[4]?.trim() || ""}`.trim(),
       state: getStateFromString(rawData), // Use the state-matching function
-      studentContact: `${data[5]?.trim() || ""}, ${data[11]?.trim() || ""}`.trim(),
+      studentContact: "",
       email: data[6]?.trim() || "Not mentioned",
     };
   };
@@ -102,13 +102,13 @@ function App() {
   const handleCopy = () => {
     if (formattedText) {
       navigator.clipboard.writeText(formattedText);
-      alert("Formatted data copied to clipboard!");
+      alert("Formatted data copied and Make sure data is right!");
     }
   };
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Student Data Formatter</h1>
+      <h1>Student Data Formatter Only Vikrant Latest Form</h1>
       <textarea
         value={rawData}
         onChange={(e) => setRawData(e.target.value)}
@@ -169,7 +169,7 @@ function App() {
               cursor: "pointer",
             }}
           >
-            Copy to Clipboard
+            Copy to Clipboard & and Make sure is Correct
           </button>
         </div>
       )}
