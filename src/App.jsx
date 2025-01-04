@@ -69,7 +69,7 @@ function App() {
       aadharNumber: data[17]?.trim() || "Not mentioned",
       city: `${data[4]?.trim() || ""}`.trim(),
       state: getStateFromString(rawData), // Use the state-matching function
-      studentContact: "",
+      studentContact: `${data[5]?.trim() || ""}, ${data[11]?.trim() || ""}`.trim(),
       email: data[6]?.trim() || "Not mentioned",
     };
   };
