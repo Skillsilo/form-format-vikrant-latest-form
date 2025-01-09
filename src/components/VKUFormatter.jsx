@@ -135,44 +135,67 @@ function VKUFormatter() {
         Format Data
       </button>
       {formattedData && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Formatted Data</h2>
-          <pre
-            style={{
-              background: "#f4f4f4",
-              padding: "15px",
-              borderRadius: "5px",
-              fontSize: "16px",
-              overflowX: "auto",
-            }}
-          >
-            {JSON.stringify(formattedData, null, 2)}
-          </pre>
-          <h2>Formatted Output</h2>
-          <pre
-            style={{
-              background: "#e8f5e9",
-              padding: "15px",
-              borderRadius: "5px",
-              fontSize: "16px",
-              overflowX: "auto",
-            }}
-          >
-            {formattedText}
-          </pre>
-          <button
-            onClick={handleCopy}
-            style={{
-              padding: "10px 20px",
-              fontSize: "16px",
-              marginTop: "10px",
-              cursor: "pointer",
-            }}
-          >
-            Copy The Details
-          </button>
-        </div>
-      )}
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh", // Full viewport height for vertical centering
+      backgroundColor: "#f9f9f9", // Optional: Add a light background for contrast
+    }}
+  >
+    <div
+      style={{
+        background: "#ffffff",
+        padding: "20px",
+        borderRadius: "10px",
+        border: "1px solid #ddd", // Add a border around the container
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow
+        maxWidth: "600px",
+        width: "90%", // Ensure responsiveness
+      }}
+    >
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Data</h2>
+      <pre
+        style={{
+          background: "#f4f4f4",
+          padding: "15px",
+          borderRadius: "5px",
+          fontSize: "16px",
+          overflowX: "auto",
+        }}
+      >
+        {JSON.stringify(formattedData, null, 2)}
+      </pre>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Output</h2>
+      <pre
+        style={{
+          background: "#e8f5e9",
+          padding: "15px",
+          borderRadius: "5px",
+          fontSize: "16px",
+          overflowX: "auto",
+        }}
+      >
+        {formattedText}
+      </pre>
+      <button
+        onClick={handleCopy}
+        style={{
+          display: "block",
+          padding: "10px 20px",
+          fontSize: "16px",
+          margin: "10px auto 0", // Center the button horizontally
+          cursor: "pointer",
+          backgroundColor:"lightblue"
+        }}
+      >
+        Click here to copy the Details
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
