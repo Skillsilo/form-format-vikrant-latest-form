@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UniversitySelector from "./components/UniversitySelector";
 import VKUFormatter from "./components/VKUFormatter";
 import MKUFormatter from "./components/MKUFormatter";
+import JSFormatter from "./components/JSFormatter";
 
 function App() {
   const [selectedUniversity, setSelectedUniversity] = useState("");
@@ -12,6 +13,8 @@ function App() {
         return <VKUFormatter />;
       case "MKU":
         return <MKUFormatter />;
+      case "JSU":
+        return <JSFormatter />;
       default:
         return <UniversitySelector onSelect={setSelectedUniversity} />;
     }

@@ -34,6 +34,12 @@ function UniversitySelector({ onSelect }) {
       >
         MKU University
       </button>
+      <button
+        onClick={() => onSelect("JSU")}
+        className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600"
+      >
+        JS University
+      </button>
     </div>
   );
 }
