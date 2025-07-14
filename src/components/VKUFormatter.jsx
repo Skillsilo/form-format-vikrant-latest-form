@@ -99,36 +99,18 @@ function VKUFormatter() {
   };
 
   return (
-    <div style={{
-      fontFamily: "Segoe UI, sans-serif",
-      background: "#f0f4f8",
-      minHeight: "100vh",
-      padding: "40px 20px",
-      position: "relative"
-    }}>
-      <div style={{
-        background: "#fff",
-        padding: "30px",
-        borderRadius: "15px",
-        maxWidth: "800px",
-        margin: "0 auto",
-        boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
-        border: "1px solid #e0e0e0"
-      }}>
-        <h1 style={{ textAlign: "center", color: "#0077b6" }}>🎓 VKU Student Data Formatter</h1>
+    <div className="min-h-screen bg-gray-100 p-4 relative">
+      <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-xl p-6 border border-gray-200">
+        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">🎓 VKU Student Data Formatter</h1>
 
-        {/* Dropdown */}
-        <div style={{ margin: "20px 0" }}>
-          <label style={{ fontWeight: "bold", marginRight: "10px" }}>Select Session:</label>
+        {/* Session Dropdown */}
+        <div className="mb-4 flex items-center space-x-4">
+          <label htmlFor="session" className="font-semibold">Select Session:</label>
           <select
+            id="session"
             value={selectedSession}
             onChange={(e) => setSelectedSession(e.target.value)}
-            style={{
-              padding: "8px 15px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "16px",
-            }}
+            className="p-2 rounded-md border border-gray-300 shadow-sm"
           >
             <option value="2022-23">2022-23</option>
             <option value="2023-24">2023-24</option>
@@ -137,27 +119,52 @@ function VKUFormatter() {
           </select>
         </div>
 
-        {/* Text Area */}
+        {/* Textarea */}
         <textarea
           value={rawData}
           onChange={(e) => setRawData(e.target.value)}
           placeholder="Paste raw student data here..."
-          rows="8"
-          style={{
-            width: "100%",
-            padding: "15px",
-            fontSize: "16px",
-            borderRadius: "10px",
-            border: "1px solid #ccc",
-            marginBottom: "20px",
-            background: "#fefefe"
-          }}
+          rows="6"
+          className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         {/* Format Button */}
         <button
           onClick={handleFormat}
-          style={{
-            backgroundColor: "#0077b6",
-            color: "#fff",
-            pa
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg block mx-auto font-semibold transition duration-200"
+        >
+          ✅ Format Data
+        </button>
+
+        {/* Output */}
+        {formattedData && (
+          <div className="mt-8 bg-gray-50 border border-blue-100 p-6 rounded-lg shadow-inner">
+            <h2 className="text-xl font-semibold text-center mb-4 text-blue-600">📄 Formatted JSON</h2>
+            <pre className="bg-white p-4 rounded border border-gray-200 overflow-x-auto text-sm whitespace-pre-wrap">
+              {JSON.stringify(formattedData, null, 2)}
+            </pre>
+
+            <h2 className="text-xl font-semibold text-center mt-6 mb-4 text-green-600">📋 Formatted Output</h2>
+            <pre className="bg-green-50 p-4 rounded border border-green-200 overflow-x-auto text-sm whitespace-pre-wrap">
+              {formattedText}
+            </pre>
+
+            <button
+              onClick={handleCopy}
+              className="mt-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg block mx-auto font-medium transition duration-200"
+            >
+              📎 Copy to Clipboard
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-4 right-4 text-sm text-gray-500 italic">
+        Developed by <span className="font-semibold">Er. Manish</span>
+      </div>
+    </div>
+  );
+}
+
+export default VKUFormatter;
