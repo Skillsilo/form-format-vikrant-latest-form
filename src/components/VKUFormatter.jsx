@@ -81,7 +81,7 @@ function VKUFormatter() {
 
     // Generate formatted text for display and clipboard
     const text = `
-      *New Registration Done*
+     
       Student Name: ${formatted.studentName}
       Father's Name: ${formatted.fatherName}
       Mother's Name: ${formatted.motherName}
