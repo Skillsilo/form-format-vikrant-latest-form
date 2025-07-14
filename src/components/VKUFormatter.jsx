@@ -4,7 +4,7 @@ function VKUFormatter() {
   const [rawData, setRawData] = useState("");
   const [formattedData, setFormattedData] = useState(null);
   const [formattedText, setFormattedText] = useState("");
-  const [selectedSession, setSelectedSession] = useState("2024-25"); // Default session
+  const [selectedSession, setSelectedSession] = useState("2024-25");
 
   const states = [
     { name: "Andhra Pradesh", aliases: ["andra pradesh"] },
@@ -99,126 +99,65 @@ function VKUFormatter() {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", position: "relative", minHeight: "100vh" }}>
-      <h1>Student Data Formatter</h1>
+    <div style={{
+      fontFamily: "Segoe UI, sans-serif",
+      background: "#f0f4f8",
+      minHeight: "100vh",
+      padding: "40px 20px",
+      position: "relative"
+    }}>
+      <div style={{
+        background: "#fff",
+        padding: "30px",
+        borderRadius: "15px",
+        maxWidth: "800px",
+        margin: "0 auto",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
+        border: "1px solid #e0e0e0"
+      }}>
+        <h1 style={{ textAlign: "center", color: "#0077b6" }}>🎓 VKU Student Data Formatter</h1>
 
-      {/* Session Dropdown */}
-      <label htmlFor="session">Select Session: </label>
-      <select
-        id="session"
-        value={selectedSession}
-        onChange={(e) => setSelectedSession(e.target.value)}
-        style={{ padding: "5px", fontSize: "16px", marginBottom: "20px" }}
-      >
-        <option value="2022-23">2022-23</option>
-        <option value="2023-24">2023-24</option>
-        <option value="2024-25">2024-25</option>
-        <option value="2025-26">2025-26</option>
-      </select>
-
-      <textarea
-        value={rawData}
-        onChange={(e) => setRawData(e.target.value)}
-        placeholder="Paste raw data here"
-        rows="10"
-        cols="50"
-        style={{
-          width: "100%",
-          padding: "10px",
-          fontSize: "16px",
-          marginBottom: "20px",
-        }}
-      ></textarea>
-
-      <br />
-      <button
-        onClick={handleFormat}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          marginRight: "10px",
-          cursor: "pointer",
-        }}
-      >
-        Format Data
-      </button>
-
-      {formattedData && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "80vh",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
-          <div
+        {/* Dropdown */}
+        <div style={{ margin: "20px 0" }}>
+          <label style={{ fontWeight: "bold", marginRight: "10px" }}>Select Session:</label>
+          <select
+            value={selectedSession}
+            onChange={(e) => setSelectedSession(e.target.value)}
             style={{
-              background: "#ffffff",
-              padding: "20px",
-              borderRadius: "10px",
-              border: "1px solid #ddd",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              maxWidth: "600px",
-              width: "90%",
+              padding: "8px 15px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontSize: "16px",
             }}
           >
-            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Data</h2>
-            <pre
-              style={{
-                background: "#f4f4f4",
-                padding: "15px",
-                borderRadius: "5px",
-                fontSize: "16px",
-                overflowX: "auto",
-              }}
-            >
-              {JSON.stringify(formattedData, null, 2)}
-            </pre>
-            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Output</h2>
-            <pre
-              style={{
-                background: "#e8f5e9",
-                padding: "15px",
-                borderRadius: "5px",
-                fontSize: "16px",
-                overflowX: "auto",
-              }}
-            >
-              {formattedText}
-            </pre>
-            <button
-              onClick={handleCopy}
-              style={{
-                display: "block",
-                padding: "10px 20px",
-                fontSize: "16px",
-                margin: "10px auto 0",
-                cursor: "pointer",
-                backgroundColor: "lightblue",
-              }}
-            >
-              Click here to copy the Details
-            </button>
-          </div>
+            <option value="2022-23">2022-23</option>
+            <option value="2023-24">2023-24</option>
+            <option value="2024-25">2024-25</option>
+            <option value="2025-26">2025-26</option>
+          </select>
         </div>
-      )}
 
-      {/* Footer */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: "10px",
-          right: "20px",
-          fontSize: "14px",
-          color: "#555",
-        }}
-      >
-        Developed by <strong>Er. Manish</strong>
-      </div>
-    </div>
-  );
-}
+        {/* Text Area */}
+        <textarea
+          value={rawData}
+          onChange={(e) => setRawData(e.target.value)}
+          placeholder="Paste raw student data here..."
+          rows="8"
+          style={{
+            width: "100%",
+            padding: "15px",
+            fontSize: "16px",
+            borderRadius: "10px",
+            border: "1px solid #ccc",
+            marginBottom: "20px",
+            background: "#fefefe"
+          }}
+        />
 
-export default VKUFormatter;
+        {/* Format Button */}
+        <button
+          onClick={handleFormat}
+          style={{
+            backgroundColor: "#0077b6",
+            color: "#fff",
+            pa
