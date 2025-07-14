@@ -161,8 +161,17 @@ function VKUFormatter() {
 
       {/* Footer */}
       <div className="absolute bottom-4 right-4 text-sm text-gray-500 italic">
-        Developed by <span className="font-semibold">Er. Manish</span>
-      </div>
+          Developed by{" "}
+          <a
+            href="https://www.linkedin.com/in/manish-371634229/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-blue-600 hover:underline"
+          >
+            Er. Manish
+          </a>
+        </div>
+
     </div>
   );
 }
