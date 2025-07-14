@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-
 function VKUFormatter() {
-  const [rawData, setRawData] = useState(""); // Raw data input by the user
-  const [formattedData, setFormattedData] = useState(null); // Formatted data output
-  const [formattedText, setFormattedText] = useState(""); // Formatted text for display
+  const [rawData, setRawData] = useState("");
+  const [formattedData, setFormattedData] = useState(null);
+  const [formattedText, setFormattedText] = useState("");
+  const [selectedSession, setSelectedSession] = useState("2024-25"); // Default session
 
   const states = [
     { name: "Andhra Pradesh", aliases: ["andra pradesh"] },
@@ -36,27 +36,22 @@ function VKUFormatter() {
     { name: "Uttarakhand", aliases: ["uk", "uttaranchal"] },
     { name: "West Bengal", aliases: ["bengal"] },
   ];
-  
-  // Function to identify state from raw data
+
   const getStateFromString = (rawData) => {
-    const normalizedData = rawData.toLowerCase(); // Convert raw data to lowercase
+    const normalizedData = rawData.toLowerCase();
     for (const state of states) {
       if (
-        normalizedData.includes(state.name.toLowerCase()) || // Match exact name
-        state.aliases.some((alias) => normalizedData.includes(alias.toLowerCase())) // Match aliases
+        normalizedData.includes(state.name.toLowerCase()) ||
+        state.aliases.some((alias) => normalizedData.includes(alias.toLowerCase()))
       ) {
         return state.name;
       }
     }
     return "Not mentioned";
   };
-  
 
-  // Function to format raw data
   const formatStudentData = (rawData) => {
-    const data = rawData.split("\t"); // Split raw data using tab space
-
-    // Determine semester based on LE status
+    const data = rawData.split("\t");
     const semester = data[8]?.trim().toLowerCase() === "yes" ? "3rd" : "1st";
 
     return {
@@ -68,20 +63,17 @@ function VKUFormatter() {
       semester: semester,
       aadharNumber: data[17]?.trim() || "Not mentioned",
       city: `${data[4]?.trim() || ""}`.trim(),
-      state: getStateFromString(rawData), // Use the state-matching function
+      state: getStateFromString(rawData),
       studentContact: `${data[5]?.trim() || ""}, ${data[11]?.trim() || ""}`.trim(),
       email: data[6]?.trim() || "Not mentioned",
     };
   };
 
-  // Handler to format the data
   const handleFormat = () => {
     const formatted = formatStudentData(rawData);
     setFormattedData(formatted);
 
-    // Generate formatted text for display and clipboard
     const text = `
-     
       Student Name: ${formatted.studentName}
       Father's Name: ${formatted.fatherName}
       Mother's Name: ${formatted.motherName}
@@ -93,12 +85,12 @@ function VKUFormatter() {
       State: ${formatted.state}
       Student Contact: ${formatted.studentContact.split(",")[0]}
       Email: ${formatted.email}
-      Session: 2024-25
+      Session: ${selectedSession}
     `.trim();
+
     setFormattedText(text);
   };
 
-  // Handler to copy formatted data to the clipboard
   const handleCopy = () => {
     if (formattedText) {
       navigator.clipboard.writeText(formattedText);
@@ -107,8 +99,23 @@ function VKUFormatter() {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", position: "relative", minHeight: "100vh" }}>
       <h1>Student Data Formatter</h1>
+
+      {/* Session Dropdown */}
+      <label htmlFor="session">Select Session: </label>
+      <select
+        id="session"
+        value={selectedSession}
+        onChange={(e) => setSelectedSession(e.target.value)}
+        style={{ padding: "5px", fontSize: "16px", marginBottom: "20px" }}
+      >
+        <option value="2022-23">2022-23</option>
+        <option value="2023-24">2023-24</option>
+        <option value="2024-25">2024-25</option>
+        <option value="2025-26">2025-26</option>
+      </select>
+
       <textarea
         value={rawData}
         onChange={(e) => setRawData(e.target.value)}
@@ -122,6 +129,7 @@ function VKUFormatter() {
           marginBottom: "20px",
         }}
       ></textarea>
+
       <br />
       <button
         onClick={handleFormat}
@@ -134,68 +142,81 @@ function VKUFormatter() {
       >
         Format Data
       </button>
-      {formattedData && (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh", // Full viewport height for vertical centering
-      backgroundColor: "#f9f9f9", // Optional: Add a light background for contrast
-    }}
-  >
-    <div
-      style={{
-        background: "#ffffff",
-        padding: "20px",
-        borderRadius: "10px",
-        border: "1px solid #ddd", // Add a border around the container
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow
-        maxWidth: "600px",
-        width: "90%", // Ensure responsiveness
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Data</h2>
-      <pre
-        style={{
-          background: "#f4f4f4",
-          padding: "15px",
-          borderRadius: "5px",
-          fontSize: "16px",
-          overflowX: "auto",
-        }}
-      >
-        {JSON.stringify(formattedData, null, 2)}
-      </pre>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Output</h2>
-      <pre
-        style={{
-          background: "#e8f5e9",
-          padding: "15px",
-          borderRadius: "5px",
-          fontSize: "16px",
-          overflowX: "auto",
-        }}
-      >
-        {formattedText}
-      </pre>
-      <button
-        onClick={handleCopy}
-        style={{
-          display: "block",
-          padding: "10px 20px",
-          fontSize: "16px",
-          margin: "10px auto 0", // Center the button horizontally
-          cursor: "pointer",
-          backgroundColor:"lightblue"
-        }}
-      >
-        Click here to copy the Details
-      </button>
-    </div>
-  </div>
-)}
 
+      {formattedData && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "80vh",
+            backgroundColor: "#f9f9f9",
+          }}
+        >
+          <div
+            style={{
+              background: "#ffffff",
+              padding: "20px",
+              borderRadius: "10px",
+              border: "1px solid #ddd",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              maxWidth: "600px",
+              width: "90%",
+            }}
+          >
+            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Data</h2>
+            <pre
+              style={{
+                background: "#f4f4f4",
+                padding: "15px",
+                borderRadius: "5px",
+                fontSize: "16px",
+                overflowX: "auto",
+              }}
+            >
+              {JSON.stringify(formattedData, null, 2)}
+            </pre>
+            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Formatted Output</h2>
+            <pre
+              style={{
+                background: "#e8f5e9",
+                padding: "15px",
+                borderRadius: "5px",
+                fontSize: "16px",
+                overflowX: "auto",
+              }}
+            >
+              {formattedText}
+            </pre>
+            <button
+              onClick={handleCopy}
+              style={{
+                display: "block",
+                padding: "10px 20px",
+                fontSize: "16px",
+                margin: "10px auto 0",
+                cursor: "pointer",
+                backgroundColor: "lightblue",
+              }}
+            >
+              Click here to copy the Details
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          right: "20px",
+          fontSize: "14px",
+          color: "#555",
+        }}
+      >
+        Developed by <strong>Er. Manish</strong>
+      </div>
     </div>
   );
 }
